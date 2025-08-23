@@ -1,0 +1,14 @@
+spring:
+  messages:
+    basename: i18n/messages
+  application:
+    name: Restaurant
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+    username: hr
+    password: hr
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
