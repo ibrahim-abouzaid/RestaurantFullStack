@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/products")
 @CrossOrigin("http://localhost:4200")
 public class ProductController {
     //crud op
@@ -49,14 +50,14 @@ public class ProductController {
         return ResponseEntity.ok().body (productService.deleteList(ids));
 
     }
-    @GetMapping("/get-All-ProductByKey")
-    public ResponseEntity<List<ProductDto>> getAllProductsContain(@RequestParam @Valid String  key){
+    @GetMapping("/search/{key}")
+    public ResponseEntity<List<ProductDto>> getAllProductsContain(@PathVariable @Valid String  key){
         return ResponseEntity.ok().body (productService.getAllProductsByKey(key));
 
     }
 
-    @GetMapping("/get-All-ProductByCategoryId")
-    public ResponseEntity<List<ProductDto>> getAllProductsContain(@RequestParam @Valid Long  id){
+    @GetMapping("/get-All-ByCategoryId/{id}")
+    public ResponseEntity<List<ProductDto>> getAllProductsContain(@PathVariable @Valid Long  id){
         return ResponseEntity.ok().body (productService.getAllProductsByCategoryId(id));
 
     }

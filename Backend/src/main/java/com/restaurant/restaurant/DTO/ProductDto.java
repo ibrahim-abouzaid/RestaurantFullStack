@@ -22,15 +22,18 @@ public class ProductDto {
 
     private Long id;
     @NotBlank(message = "product.name.required")
+    @NotNull(message = "product.name.notNull")
     @Size(min = 2, max = 100, message = "product.name.size")
     private String name;
+    @NotBlank(message = "Image URL is required")
     private String image;
     @Size(max = 500, message = "product.description.size")
     private String description;
-    @NotNull(message = "Price is required")
+    @NotNull(message = "Price.required")
     @DecimalMin(value = "0.0", inclusive = false, message = "product.price.less.than.zero")
     private  Double price;
-    private Long category_id;
+    @NotNull(message = "Category.ID.required")
+    private Long categoryId;
 
 
 }

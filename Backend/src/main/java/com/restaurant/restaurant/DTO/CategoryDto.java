@@ -28,6 +28,5 @@ public class CategoryDto {
     private String name;
     private String logo;
     private String flag;
-    @JsonIgnore
-    private List<Product> products;
+
 }

@@ -13,10 +13,12 @@ public interface ProductMapper {
 
 
     //Entity -> DTO
-    @Mapping(source = "category.id", target = "category_id")
+    @Mapping(source = "category.id", target = "categoryId")
+
     ProductDto toProductDto(Product product);
     // DTO -> Entity
-    @Mapping(source = "category_id", target = "category.id")
+
+    @Mapping(source = "categoryId", target = "category.id")
     Product toProduct (ProductDto productDto);
     //List of Entity -> list of DTO
     List<Product> toListOfProduct(List<ProductDto>productDtos);
