@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoryService} from '../../../service/category.service';
 import {Category} from '../../../model/category';
+import {AuthService} from '../../../service/auth.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class CategoryComponent implements OnInit{
 
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService) {
+  constructor(private categoryService: CategoryService,private authService: AuthService) {
 
   }
 
@@ -25,5 +26,8 @@ export class CategoryComponent implements OnInit{
     this.categoryService.getCategories().subscribe(
       value => this.categories = value
     );
+  }
+  isLoggedIn(): boolean{
+    return this.authService.isUserLogin();
   }
 }

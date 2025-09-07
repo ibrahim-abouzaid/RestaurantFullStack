@@ -1,0 +1,16 @@
+<div class="signup-container">
+  <h2>Create Account</h2>
+    <input #username type="text" placeholder="UserName" required>
+    <input #password type="password" placeholder="Password" required>
+    <input #confirmPassword type="password" placeholder="Confirm Password" required>
+    <button type="submit" (click)="signup(username.value, password.value, confirmPassword.value)" >Sign Up</button>
+  <p>Already have an account? <a href="/login">Login</a></p>
+  <!-- Backend message placeholder -->
+
+  <div *ngIf="messageAr || messageEn" class="toast show">
+    <!-- Example: this will be filled by backend -->
+    {{ messageEn }}
+    <br>
+    {{ messageAr }}
+  </div>
+</div>

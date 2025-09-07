@@ -1,0 +1,16 @@
+<div class="login-container">
+  <h2>Login</h2>
+
+    <input #username type="text" placeholder="Username" required>
+    <input #password type="password" placeholder="Password" required>
+    <button type="submit" (click)="login(username.value,password.value)">Login</button>
+
+  <p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
+
+  <div *ngIf="messageAr || messageEn" class="toast show">
+    <!-- Example: this will be filled by backend -->
+    {{ messageEn }}
+    <br>
+    {{ messageAr }}
+  </div>
+</div>

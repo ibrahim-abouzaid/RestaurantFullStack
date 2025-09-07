@@ -11,18 +11,27 @@ import {FooterComponent} from './componants/footer/footer.component';
 import { ChefsComponent } from './componants/chefs/chefs.component';
 import { ContactInfoComponent } from './componants/contact-info/contact-info.component';
 import {APP_BASE_HREF} from '@angular/common';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { LoginComponent } from './componants/login/login.component';
+import { SignUpComponent } from './componants/sign-up/sign-up.component';
+import {AuthInterceptor} from './interceptors/auth.interceptor';
 
 // http://localhost:4200/
 export const routes: Routes = [
 
   // http://localhost:4200/products
   {path: 'products', component: ProductsComponent},
+  {path: 'get-All-ByCategoryId/:id', component: ProductsComponent},
+  {path: 'products/:key', component: ProductsComponent},
   // http://localhost:4200/cardDetails
   {path: 'cardDetails', component: CardDetailsComponent},
   {path: 'contact-info', component: ContactInfoComponent},
   {path: 'chefs', component: ChefsComponent},
+  // http://localhost:4200/login
+  {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignUpComponent},
   // http://localhost:4200/
+
   {path: '', redirectTo: '/products', pathMatch: 'full'},
 
   // if user enter thing without all routes
@@ -47,14 +56,17 @@ export const routes: Routes = [
     CardComponent,
     FooterComponent,
     ChefsComponent,
-    ContactInfoComponent
+    ContactInfoComponent,
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
+  providers: [{ provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor, multi: true},
+    { provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [
     AppComponent
   ]
