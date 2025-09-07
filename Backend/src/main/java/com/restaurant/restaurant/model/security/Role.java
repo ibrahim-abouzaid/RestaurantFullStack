@@ -1,4 +1,4 @@
-package com.restaurant.restaurant.model;
+package com.restaurant.restaurant.model.security;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,20 +8,17 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter
-@Getter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Category {
+@Setter
+@Getter
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String logo;
-    private String flag;
-    @OneToMany(mappedBy = "category")
-    @OrderBy("id ASC")
-    private List<Product> products;
-
+    @Column(nullable = false)
+    private String role;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 }

@@ -1,27 +1,30 @@
 package com.restaurant.restaurant.model;
 
+import com.restaurant.restaurant.model.security.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
+@Entity
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Category {
+@AllArgsConstructor
+public class ContactInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String logo;
-    private String flag;
-    @OneToMany(mappedBy = "category")
-    @OrderBy("id ASC")
-    private List<Product> products;
+    private String email;
+    private String subject;
+    @Column(length = 500)
+    private String message;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
 }

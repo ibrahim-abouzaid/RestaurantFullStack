@@ -1,9 +1,6 @@
 package com.restaurant.restaurant.DTO;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.restaurant.restaurant.model.Category;
-import jakarta.persistence.*;
+
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

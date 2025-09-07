@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto save(CategoryDto categoryDto) {
         if(Objects.nonNull(categoryDto.getId())){
             //TODO handel the message
-            throw new RuntimeException("ID must be null");
+            throw new RuntimeException("id.must_be.null");
         }
         Category category= categoryMapper.toCategory(categoryDto);
         //TODO will cause exception
@@ -47,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryDtos.stream().forEach(categoryDto -> {
             if(Objects.nonNull(categoryDto.getId())){
                 //TODO handel the message
-                throw new RuntimeException("ID must be null");
+                throw new RuntimeException("id.must_be.null");
             }
         });
 
@@ -60,7 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto update(CategoryDto categoryDto) {
         if(Objects.isNull(categoryDto.getId())){
             //TODO handel the message
-            throw new RuntimeException("ID must not be null");
+            throw new RuntimeException("id.must_be.not.null");
         }
         Category category= categoryMapper.toCategory(categoryDto);
         //TODO will cause exception
@@ -75,7 +75,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryDtos.stream().forEach(categoryDto -> {
             if(Objects.isNull(categoryDto.getId())){
                 //TODO handel the message
-                throw new RuntimeException("ID must not be null");
+                throw new RuntimeException("id.must_be.not.null");
             }
         });
 
@@ -116,7 +116,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto getCategory(Long id) {
         if(!categoryRepo.findById(id).isPresent()){
             //TODO handel the message
-            throw new RuntimeException("ID not found");
+            throw new RuntimeException("id.not.found");
         }
         Category category =categoryRepo.findById(id).get();
 

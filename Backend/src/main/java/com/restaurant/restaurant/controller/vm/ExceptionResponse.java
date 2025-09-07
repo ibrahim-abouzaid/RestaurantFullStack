@@ -1,5 +1,6 @@
 package com.restaurant.restaurant.controller.vm;
 
+import com.restaurant.restaurant.setting.BundleMessage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExceptionResponse {
-    private String message;
+    private BundleMessage bundleMessage;
 
 }

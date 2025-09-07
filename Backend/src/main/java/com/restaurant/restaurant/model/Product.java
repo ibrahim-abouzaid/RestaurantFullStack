@@ -1,11 +1,12 @@
 package com.restaurant.restaurant.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -26,7 +27,14 @@ public class Product {
     private  Double price;
     @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
+    @OrderBy("id ASC")
     private Category category;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Orders> orders;
+
+
+
 
 
 
