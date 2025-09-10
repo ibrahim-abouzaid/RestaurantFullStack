@@ -4,8 +4,13 @@ import com.restaurant.restaurant.DTO.ProductDto;
 import com.restaurant.restaurant.Mapper.ProductMapper;
 import com.restaurant.restaurant.Repo.ProductRepo;
 import com.restaurant.restaurant.Service.ProductService;
+import com.restaurant.restaurant.controller.vm.ProductResponseVm;
 import com.restaurant.restaurant.model.Product;
+import jakarta.transaction.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -107,21 +112,77 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> getAllProductsByKey(String key) {
-       List<Product> products= productRepo.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(key,key);
-        return productMapper.toListOfProductDto(products);
+    public ProductResponseVm getAllProductsByKey(String key,int page,int size) {
+        try {
+
+
+            Pageable pageable = getPageable(page, size);
+            Page<Product> productPage = productRepo.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(key, key, pageable);
+            if (productPage.isEmpty()) {
+                throw new SystemException("products.not.found");
+            }
+            return new ProductResponseVm(
+                    productPage.getContent()
+                            .stream()
+                            .map(productMapper::toProductDto).toList(),
+                    productPage.getTotalElements()
+            );
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
 
     @Override
-    public List<ProductDto> getAllProductsByCategoryId(Long id) {
-        return   productMapper.toListOfProductDto(productRepo.findByCategoryId(id));
+    public ProductResponseVm getAllProductsByCategoryId(Long id,int page,int size) {
+        try {
+        Pageable pageable = getPageable(page, size);
+        Page<Product> productPage = productRepo.findByCategoryId(id, pageable);
+        if (productPage.isEmpty()) {
+            throw new SystemException("products.not.found");
+        }
+            return new ProductResponseVm(
+                    productPage.getContent()
+                            .stream()
+                            .map(productMapper::toProductDto).toList(),
+                    productPage.getTotalElements()
+            );
+    }   catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
 
-    @Override
-    public List<ProductDto> getAllProducts() {
 
-        return   productMapper.toListOfProductDto(productRepo.findAll()) ;
+
+    public ProductResponseVm getAllProducts(int page, int size) {
+        try {
+            Pageable pageable = getPageable(page, size);
+            Page<Product> productPage = productRepo.findAll(pageable);
+            if (productPage.isEmpty()) {
+                throw new SystemException("products.not.found");
+            }
+            return new ProductResponseVm(
+                    productPage.getContent()
+                            .stream()
+                            .map(productMapper::toProductDto).toList(),
+                    productPage.getTotalElements()
+            );
+        } catch (SystemException e){
+                throw new RuntimeException(e.getMessage());
+            }
+
+        }
+
+   private Pageable getPageable (int page ,int size){
+        try {
+            if (page < 1) {
+            throw new SystemException("error.min.one.page");
+        }
+       return PageRequest.of(page - 1, size);
+   } catch (SystemException e) {
+        throw new RuntimeException(e.getMessage());
     }
-
+   }
 
 }

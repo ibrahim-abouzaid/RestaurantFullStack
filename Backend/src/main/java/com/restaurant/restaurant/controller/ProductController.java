@@ -2,6 +2,7 @@ package com.restaurant.restaurant.controller;
 
 import com.restaurant.restaurant.DTO.ProductDto;
 import com.restaurant.restaurant.Service.ProductService;
+import com.restaurant.restaurant.controller.vm.ProductResponseVm;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,20 +51,20 @@ public class ProductController {
         return ResponseEntity.ok().body (productService.deleteList(ids));
 
     }
-    @GetMapping("/search/{key}")
-    public ResponseEntity<List<ProductDto>> getAllProductsContain(@PathVariable @Valid String  key){
-        return ResponseEntity.ok().body (productService.getAllProductsByKey(key));
+    @GetMapping("/search")
+    public ResponseEntity<ProductResponseVm> getAllProductsContain(@RequestParam @Valid String  key ,@RequestParam int page,@RequestParam int size){
+        return ResponseEntity.ok().body (productService.getAllProductsByKey(key,page,size));
 
     }
 
     @GetMapping("/get-All-ByCategoryId/{id}")
-    public ResponseEntity<List<ProductDto>> getAllProductsContain(@PathVariable @Valid Long  id){
-        return ResponseEntity.ok().body (productService.getAllProductsByCategoryId(id));
+    public ResponseEntity<ProductResponseVm> getAllProductsContain( @RequestParam int page,@RequestParam int size, @PathVariable @Valid Long  id){
+        return ResponseEntity.ok().body (productService.getAllProductsByCategoryId(id,page,size));
 
     }
     @GetMapping("/get-All-Product")
-    public ResponseEntity<List<ProductDto>> getAllProducts(){
-        return ResponseEntity.ok().body (productService.getAllProducts());
+    public ResponseEntity<ProductResponseVm> getAllProducts(@RequestParam int page,@RequestParam int size ){
+        return ResponseEntity.ok().body (productService.getAllProducts( page, size));
 
     }
 

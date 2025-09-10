@@ -1,6 +1,7 @@
 package com.restaurant.restaurant.Service;
 
 import com.restaurant.restaurant.DTO.ProductDto;
+import com.restaurant.restaurant.controller.vm.ProductResponseVm;
 import com.restaurant.restaurant.model.Product;
 
 import java.util.List;
@@ -16,9 +17,9 @@ public interface ProductService {
     List<Boolean> deleteList(List<Long> ids);
 
     ProductDto getProduct(Long id);
-    List<ProductDto> getAllProductsByKey(String key);
-    List<ProductDto> getAllProductsByCategoryId(Long key);
-    List<ProductDto> getAllProducts( );
+    ProductResponseVm getAllProductsByKey(String key,int page,int size);
+    ProductResponseVm getAllProductsByCategoryId(Long key,int page,int size);
+    ProductResponseVm getAllProducts(int page,int size);
 
 
 }
