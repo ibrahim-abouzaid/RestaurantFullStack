@@ -1,7 +1,7 @@
 
 <div class="tab-content">
   <div id="tab-1" class="tab-pane fade show p-0 active">
-    <div class="row g-4">
+    <div *ngIf="!messageAr && !messageEn" class="row g-4" >
       <div *ngFor="let pro of products" class="col-lg-6">
         <div class="d-flex align-items-center">
           <img class="flex-shrink-0 img-fluid rounded" src="../../../assets/img/{{pro.image}}" alt="" style="width: 80px;">
@@ -16,19 +16,19 @@
         </div>
       </div>
       <div class="col-md-9 pag" style="padding-left: 30%">
-        <!--                <ngb-pagination-->
-        <!--                  [(page)]="page"-->
-        <!--                  [pageSize]="pageLength"-->
-        <!--                  [collectionSize]="orderSize"-->
-        <!--                  (pageChange)="doing()"-->
-        <!--                  [maxSize]="5"-->
-        <!--                  [boundaryLinks]="true"-->
-        <!--                >-->
-        <!--                </ngb-pagination>-->
+           <ngb-pagination
+             [(page)]=pageNumber
+             [pageSize]= pageSize
+             [collectionSize]=totalProductsSize
+             (pageChange)=pagaintion()
+             [maxSize]="5"
+             [boundaryLinks]="true"
+           >
+           </ngb-pagination>
 
         <div class="sel">
           <span class="mr-2">Page Size</span>
-          <select>
+          <select (change)="changePageSize($event)">
             <option>2</option>
             <option>5</option>
             <option selected="true">10</option>
@@ -38,6 +38,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div *ngIf="messageEn || messageAr" class="error-container">
+    <p class="error-message">{{messageAr}}</p>
+    <p class="error-message">{{messageEn}}</p>
   </div>
 </div>
 

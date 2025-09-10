@@ -12,22 +12,22 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.baseUrl+'get-All-Product').pipe(
+  getProducts(page ,size): Observable<any> {
+    return this.http.get<Product[]>(this.baseUrl+'get-All-Product?page='+page+"&size="+size).pipe(
       map(
         response => response
       )
     );
   }
-  getProductByCategoryId(id: number ) : Observable<Product[]>{
-    return this.http.get<Product[]>(this.baseUrl+'get-All-ByCategoryId/'+id).pipe(
+  getProductByCategoryId(id,page,size ) : Observable<any>{
+    return this.http.get<Product[]>(this.baseUrl+'get-All-ByCategoryId/'+id + '?page='+page+"&size="+size).pipe(
       map(
         response => response
       )
     );
 }
-  searchByKey(key: string): Observable<Product[]>{
-    return this.http.get<Product[]>(this.baseUrl+'search/'+key).pipe(
+  searchByKey(key,page,size): Observable<any>{
+    return this.http.get<Product[]>(this.baseUrl+'search?key='+key +'&page='+page+"&size="+size).pipe(
       map(
         response => response
       )

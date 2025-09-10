@@ -15,21 +15,24 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './componants/login/login.component';
 import { SignUpComponent } from './componants/sign-up/sign-up.component';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {AuthGuard} from '../guard/auth.guard';
+import {LoginAndSignupGuard} from '../guard/login-and-signup.guard';
 
 // http://localhost:4200/
 export const routes: Routes = [
 
   // http://localhost:4200/products
-  {path: 'products', component: ProductsComponent},
-  {path: 'get-All-ByCategoryId/:id', component: ProductsComponent},
-  {path: 'products/:key', component: ProductsComponent},
+  {path: 'products', component: ProductsComponent, canActivate: [AuthGuard]},
+  {path: 'get-All-ByCategoryId/:id', component: ProductsComponent, canActivate: [AuthGuard]},
+  {path: 'products/:key', component: ProductsComponent, canActivate: [AuthGuard]},
   // http://localhost:4200/cardDetails
-  {path: 'cardDetails', component: CardDetailsComponent},
-  {path: 'contact-info', component: ContactInfoComponent},
-  {path: 'chefs', component: ChefsComponent},
+  {path: 'cardDetails', component: CardDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'contact-info', component: ContactInfoComponent, canActivate: [AuthGuard]},
+  {path: 'chefs', component: ChefsComponent, canActivate: [AuthGuard]},
   // http://localhost:4200/login
-  {path: 'login', component: LoginComponent},
-  {path: 'signup', component: SignUpComponent},
+  {path: 'login', component: LoginComponent,canActivate: [LoginAndSignupGuard]},
+  {path: 'signup', component: SignUpComponent,canActivate: [LoginAndSignupGuard]},
   // http://localhost:4200/
 
   {path: '', redirectTo: '/products', pathMatch: 'full'},
@@ -63,7 +66,8 @@ export const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbPaginationModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor, multi: true},
     { provide: APP_BASE_HREF, useValue: '/' }],

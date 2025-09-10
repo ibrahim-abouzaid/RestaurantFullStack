@@ -28,6 +28,7 @@ export class CategoryComponent implements OnInit{
     );
   }
   isLoggedIn(): boolean{
+
     return this.authService.isUserLogin();
   }
 }
