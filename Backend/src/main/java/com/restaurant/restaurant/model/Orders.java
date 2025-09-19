@@ -21,14 +21,16 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String code;
+    @Column(nullable = false)
     private Double totalPrice;
-    private String totalNumber;
+    @Column(nullable = false)
+    private Double totalNumber;
 
     @ManyToMany
     @JoinTable(
             name = "Order_product",
             joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "prodect_id")
+            inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
 

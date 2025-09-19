@@ -8,6 +8,7 @@ import com.restaurant.restaurant.controller.vm.ProductResponseVm;
 import com.restaurant.restaurant.model.Product;
 import jakarta.transaction.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -107,6 +108,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+
     public ProductDto getProduct(Long id) {
         return productMapper.toProductDto(productRepo.findById(id).get());
     }
@@ -154,7 +156,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-
+    //@Cacheable(value = "products" ,key = "'allProduct'")
     public ProductResponseVm getAllProducts(int page, int size) {
         try {
             Pageable pageable = getPageable(page, size);
@@ -174,7 +176,13 @@ public class ProductServiceImpl implements ProductService {
 
         }
 
-   private Pageable getPageable (int page ,int size){
+    @Override
+    public List<ProductDto> getProductByIds(List<Long> ids) {
+
+        return productMapper.toListOfProductDto(productRepo.findAllById(ids));
+    }
+
+    private Pageable getPageable (int page ,int size){
         try {
             if (page < 1) {
             throw new SystemException("error.min.one.page");

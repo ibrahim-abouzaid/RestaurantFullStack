@@ -13,7 +13,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      username: redisServer
+      password: redisCaching
 token:
   secret: VGhpc0lzQVNlY3JldEtleU1ha2VJdEJhc2U2NEFuZEtlZXBJdFNlY3VyZSE
   time: 3600000

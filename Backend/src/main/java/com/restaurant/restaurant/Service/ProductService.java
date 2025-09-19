@@ -20,6 +20,8 @@ public interface ProductService {
     ProductResponseVm getAllProductsByKey(String key,int page,int size);
     ProductResponseVm getAllProductsByCategoryId(Long key,int page,int size);
     ProductResponseVm getAllProducts(int page,int size);
+    List<ProductDto> getProductByIds(List<Long> ids);
+
 
 
 }

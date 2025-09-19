@@ -17,7 +17,6 @@ public class BundleMessage {
     }
 
     public BundleMessage(String messageEn, String messageAr) {
-        System.out.println("Here is the BundleMessage in the DTO");
 
         this.messageEn = messageEn;
         this.messageAr = messageAr;
