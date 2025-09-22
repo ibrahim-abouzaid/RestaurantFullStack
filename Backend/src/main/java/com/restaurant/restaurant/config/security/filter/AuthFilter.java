@@ -59,6 +59,7 @@ public class AuthFilter extends OncePerRequestFilter {
                 userValidated.getPassword(),
                 roles
         );
+        System.out.println("User roles: " + roles);
         //6- The SecurityContextHolder stores UsernamePasswordAuthenticationToken to make the authenticated user’s details available throughout the request.
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         //7- Continue with the filter chain

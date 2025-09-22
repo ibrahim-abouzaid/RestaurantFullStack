@@ -15,5 +15,5 @@ public interface UserMapper {
 
     UserDto toUserDto(AuthRequestVm authRequestVm);
 
-   AuthResponseVm toUserResponseVm(UserDto userDto);
+   //AuthResponseVm toUserResponseVm(UserDto userDto);
 }

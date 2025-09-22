@@ -1,5 +1,6 @@
 package com.restaurant.restaurant.Service.Impl.security;
 
+import com.restaurant.restaurant.DTO.security.RoleDto;
 import com.restaurant.restaurant.DTO.security.UserDto;
 import com.restaurant.restaurant.Mapper.security.UserMapper;
 import com.restaurant.restaurant.Service.security.AuthService;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -45,7 +47,11 @@ public class AuthServiceImpl implements AuthService {
         if(Objects.isNull(user)){
             throw new RuntimeException("create.failed");
         }
-        return new AuthResponseVm(user.getId(),user.getUsername(),tokenHandler.createToken(user));
+        List<String> roles= new ArrayList<>();
+        for(RoleDto roleDto : userDto.getRoles()){
+            roles.add(roleDto.getRole());
+        }
+        return new AuthResponseVm(user.getId(),user.getUsername(),tokenHandler.createToken(user),roles);
     }
 
     @Override
@@ -58,8 +64,11 @@ public class AuthServiceImpl implements AuthService {
             if (!passwordEncoder.matches(accountAuthRequestVm.getPassword(), userDto.getPassword())) {
                 throw new SystemException("error.invalid.credentials");
             }
-
-            return new AuthResponseVm(userDto.getId(),userDto.getUsername(),tokenHandler.createToken(userDto));
+            List<String> roles= new ArrayList<>();
+            for(RoleDto roleDto : userDto.getRoles()){
+                roles.add(roleDto.getRole());
+            }
+            return new AuthResponseVm(userDto.getId(),userDto.getUsername(),tokenHandler.createToken(userDto),roles);
         } catch (SystemException e) {
             throw new RuntimeException(e.getMessage());
         }

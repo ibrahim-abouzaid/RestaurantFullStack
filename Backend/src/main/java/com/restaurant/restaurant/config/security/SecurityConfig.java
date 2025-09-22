@@ -35,9 +35,16 @@ public class SecurityConfig {
         http.securityMatcher("/**").cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
         http.authorizeHttpRequests(
-                api -> api
+                api ->{ api
                         .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/products/get-All-Product").authenticated()
+                        .requestMatchers("/api/products/get-All-ByCategoryId/**").authenticated()
+                        .requestMatchers("/api/products/search").authenticated()
+                        .requestMatchers("/api/products/**").hasRole("ADMIN")
+
+                        .anyRequest().authenticated();
+                    System.out.println("Requesting: " + api.toString());
+}
         );
         http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
