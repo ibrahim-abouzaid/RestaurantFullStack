@@ -21,7 +21,11 @@ this.router.navigateByUrl("/products/"+ key);
   }
 
   logout(): void {
+
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+  isUserAdmin(){
+  return this.authService.isUserAdmin();
   }
 }

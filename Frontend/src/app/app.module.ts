@@ -14,10 +14,12 @@ import {APP_BASE_HREF} from '@angular/common';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './componants/login/login.component';
 import { SignUpComponent } from './componants/sign-up/sign-up.component';
-import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {AuthGuard} from '../guard/auth.guard';
 import {LoginAndSignupGuard} from '../guard/login-and-signup.guard';
+import {AuthInterceptor} from '../interceptors/auth.interceptor';
+import {OrderCodeComponent} from './componants/order-code/order-code.component';
+import { AddProductComponent } from './componants/add-product/add-product.component';
 
 // http://localhost:4200/
 export const routes: Routes = [
@@ -30,6 +32,9 @@ export const routes: Routes = [
   {path: 'cardDetails', component: CardDetailsComponent, canActivate: [AuthGuard]},
   {path: 'contact-info', component: ContactInfoComponent, canActivate: [AuthGuard]},
   {path: 'chefs', component: ChefsComponent, canActivate: [AuthGuard]},
+  { path: 'order-code/:code', component: OrderCodeComponent, canActivate: [AuthGuard] },
+  { path: 'addProducts', component: AddProductComponent, canActivate: [AuthGuard] },
+
   // http://localhost:4200/login
   {path: 'login', component: LoginComponent,canActivate: [LoginAndSignupGuard]},
   {path: 'signup', component: SignUpComponent,canActivate: [LoginAndSignupGuard]},
@@ -61,7 +66,8 @@ export const routes: Routes = [
     ChefsComponent,
     ContactInfoComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    AddProductComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

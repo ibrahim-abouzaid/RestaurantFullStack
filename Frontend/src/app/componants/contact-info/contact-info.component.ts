@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Product} from '../../../model/product';
+import {ProductOrder} from '../../../model/ProductOrder';
+import {CartService} from '../../../service/cart.service';
 
 @Component({
   selector: 'app-contact-info',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactInfoComponent implements OnInit {
 
-  constructor() { }
+  constructor(  ) { }
 
   ngOnInit(): void {
   }
+
 
 }

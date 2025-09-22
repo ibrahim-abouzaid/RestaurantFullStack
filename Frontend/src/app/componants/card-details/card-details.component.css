@@ -1,0 +1,34 @@
+.img {
+  width: 100px;
+  height: 80px;
+}
+.cart-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background-color: #f9f9f9;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  color: #555;
+  font-size: 1.2rem;
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  text-align: center;
+}
+.anchor {
+  background-color: white;
+  color: #FEAF39;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.anchor:hover{
+  color: #c27a01;
+}

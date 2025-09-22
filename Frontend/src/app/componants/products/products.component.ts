@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../../../service/product.service';
 import {Product} from '../../../model/product';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CartService} from '../../../service/cart.service';
+import {ProductOrder} from '../../../model/ProductOrder';
+import {AuthService} from '../../../service/auth.service';
 
 
 @Component({
@@ -13,13 +16,15 @@ export class ProductsComponent  implements OnInit{
 
   products: Product[] = [];
   pageNumber : number = 1;
+  lastpage : number = 0;
   pageSize: number = 20;
   totalProductsSize: number = 0;
-
+  isDeleted = false;
   messageAr: string= '';
   messageEn: string = '';
 
-  constructor(private productService: ProductService,private activatedRoute: ActivatedRoute) {
+  constructor(private productService: ProductService,private activatedRoute: ActivatedRoute,
+              private cartService: CartService, private router: Router,private authService: AuthService) {
 
   }
 
@@ -93,10 +98,45 @@ this.productService.searchByKey(key,page,this.pageSize).subscribe(
 )
   }
   pagaintion(){
+    debugger
+    this.lastpage=this.pageNumber ;
   this.loadUrl(this.pageNumber);
   }
+
   changePageSize(event: Event){
-   this.pageSize= +(<HTMLInputElement> event.target).value
+   this.pageSize = +(<HTMLInputElement> event.target).value
     this.pagaintion()
+  }
+
+  addProductToCart(product: Product){
+
+    let selectedProduct = new ProductOrder(product);
+    this.cartService.addToCart(selectedProduct);
+  }
+
+  deleteProduct(product: Product){
+
+    this.productService.deleteProductById(product).subscribe(
+      response => {
+        debugger
+        this.isDeleted=response
+        if( (this.totalProductsSize-1)/this.pageSize <=  (this.lastpage-1)){
+          this.loadUrl(1);
+        }
+        else{
+          this.loadUrl(this.lastpage);
+        }
+
+
+      },error => {
+        this.messageAr = error.error.bundleMessage.message_ar;
+        this.messageEn = error.error.bundleMessage.message_en;
+        this.products=[]
+      }
+    )
+
+  }
+  isUserAdmin(): boolean {
+    return this.authService.isUserAdmin();
   }
 }

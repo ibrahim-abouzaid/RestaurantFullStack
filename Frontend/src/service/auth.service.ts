@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {CartService} from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {map} from 'rxjs/operators';
 export class AuthService {
   private  baseUrl= 'http://localhost:8080/auth/'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private cartService:CartService) { }
 
   login(username: string, password: string):Observable<any>{
     return this.http.post<any>(this.baseUrl+"login", {username,password}).pipe(
@@ -33,7 +34,35 @@ isUserLogin():boolean{
 }
 
 logout(){
+  this.cartService.clearCart();
   sessionStorage.removeItem("token")
-}
+  sessionStorage.removeItem("roles")
 
+}
+  // getToken(): string | null {
+  //   return sessionStorage.getItem('token'); // or localStorage
+  // }
+  // getUserRoles(): string[] {
+  //   const token = this.getToken();
+  //   if (!token) return [];
+  //
+  //   try {
+  //     const decoded = jwtDecode<JwtPayload>(token);
+  //     return decoded.roles || decoded.authorities || [];
+  //   } catch (err) {
+  //     console.error('Error decoding token', err);
+  //     return [];
+  //   }
+  // }
+
+  isUserAdmin(): boolean {
+  const roles = sessionStorage.getItem("roles");
+  if (roles && roles.includes('ADMIN')) {
+    return true;
+  }
+  else
+    {
+      return false;
+    }
+  }
 }

@@ -28,7 +28,9 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(username,password).subscribe(
       response => {
+        debugger
         sessionStorage.setItem("token", response.token);
+        sessionStorage.setItem("roles",response.roles);
         this.router.navigateByUrl("/products")//if created  route to the main page
       },error => {
         this.messageAr= error.error.bundleMessage.message_ar;

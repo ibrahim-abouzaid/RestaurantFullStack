@@ -1,0 +1,49 @@
+
+<div class="form-container">
+  <h1>Add New Product</h1>
+
+
+    <!-- Product Name -->
+    <div class="form-group">
+      <label for="name">Product Name</label>
+      <input #name type="text" id="name" name="name" placeholder="Enter product name" required>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label  for="description">Description</label>
+      <textarea #description id="description" name="description" placeholder="Write product description..." rows="4"></textarea>
+    </div>
+
+    <!-- Price -->
+    <div class="form-group">
+      <label for="price">Price ($)</label>
+      <input #price type="number" id="price" name="price" min="0" step="1" placeholder="0.00" required>
+    </div>
+
+    <!-- Category -->
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select  (change)="getCategory($event)" id="category" name="category" required>
+        <ng-container *ngFor="let category of categoryList">
+          <option *ngIf="category.name !== 'ALL'">
+            {{ category.name }}
+          </option>
+        </ng-container>
+
+      </select>
+    </div>
+
+    <!-- Image -->
+<!--    <div class="form-group">-->
+<!--      <label for="image">Product Image</label>-->
+<!--      <input type="file" id="image" name="image" accept="image/*">-->
+<!--    </div>-->
+
+    <!-- Buttons -->
+    <div class="form-actions">
+      <button (click)="saveProduct(name.value,description.value,price.value)" >Save Product</button>
+      <button type="reset" class="secondary">Clear</button>
+    </div>
+
+</div>

@@ -21,16 +21,21 @@
         <div class="nav-item nav-link active"> </div>
 
 
-        <div *ngIf="isUserAuthenticated()" class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Category</a>
-          <div class="dropdown-menu m-0">
-            <a href="booking.html" class="dropdown-item">ALL</a>
-            <a href="team.html" class="dropdown-item">Breakfast</a>
-            <a href="testimonial.html" class="dropdown-item">Launch</a>
-            <a href="testimonial.html" class="dropdown-item">Dinner</a>
-            <a href="testimonial.html" class="dropdown-item">Ice Cream</a>
-            <a href="testimonial.html" class="dropdown-item">Coffee</a>
-            <a href="testimonial.html" class="dropdown-item">Cake</a>
+        <div *ngIf="isUserAuthenticated() && isUserAdmin()" class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle custom-dropdown-toggle" data-bs-toggle="dropdown">
+            ⚙️ Setting
+          </a>
+          <div class="dropdown-menu custom-dropdown shadow-lg border-0 rounded-3">
+            <a  routerLink="/addProducts" class="dropdown-item">
+              ➕ Add Product
+            </a>
+
+            <a href="booking.html" class="dropdown-item">
+              📦 All Orders
+            </a>
+            <a href="add-category.html" class="dropdown-item">
+              🏷️ Add Category
+            </a>
           </div>
         </div>
         <!--<a href="contact.html" class="nav-item nav-link">Contact</a>-->

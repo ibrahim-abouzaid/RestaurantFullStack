@@ -1,0 +1,35 @@
+/* Dropdown toggle */
+.custom-dropdown-toggle {
+  font-weight: 600;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.custom-dropdown-toggle:hover {
+  color: #007bff; /* Bootstrap primary color */
+}
+
+/* Dropdown menu */
+.custom-dropdown {
+  background: #fff;
+  padding: 0.5rem 0;
+  min-width: 180px;
+}
+
+/* Dropdown items */
+.custom-dropdown .dropdown-item {
+  font-size: 15px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.custom-dropdown .dropdown-item:hover {
+  background: #f8f9fa;
+  color: #007bff;
+  padding-left: 25px; /* little slide animation */
+}
+
+
+
