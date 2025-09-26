@@ -5,6 +5,7 @@ import com.restaurant.restaurant.config.security.filter.AuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -37,13 +38,15 @@ public class SecurityConfig {
         http.authorizeHttpRequests(
                 api ->{ api
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/v3/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+
                         .requestMatchers("/api/products/get-All-Product").authenticated()
                         .requestMatchers("/api/products/get-All-ByCategoryId/**").authenticated()
                         .requestMatchers("/api/products/search").authenticated()
                         .requestMatchers("/api/products/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated();
-                    System.out.println("Requesting: " + api.toString());
 }
         );
         http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);

@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@RequestMapping("/api/category")
+
 public class CategoryController {
 
     private CategoryService categoryService;
@@ -63,5 +64,9 @@ public class CategoryController {
         return ResponseEntity.ok().body (categoryService.getAllCategories());
 
     }
+    @GetMapping("/get-CategoryById")
+    public ResponseEntity<CategoryDto> getCategoryById(@RequestParam Long id){
+        return ResponseEntity.ok().body (categoryService.getCategory(id));
 
+    }
 }

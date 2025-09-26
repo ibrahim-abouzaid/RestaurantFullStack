@@ -114,13 +114,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto getCategory(Long id) {
-        if(!categoryRepo.findById(id).isPresent()){
-            //TODO handel the message
-            throw new RuntimeException("id.not.found");
-        }
-        Category category =categoryRepo.findById(id).get();
+        if(categoryRepo.findById(id).isPresent()){
+            return categoryMapper.toCategoryDto(categoryRepo.findById(id).get());
+        }else{
 
-        return categoryMapper.toCategoryDto(category);
+            throw new RuntimeException("category.not.found");
+        }
 
     }
 

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Service
@@ -177,10 +177,22 @@ public class ProductServiceImpl implements ProductService {
         }
 
     @Override
+    public ProductDto getProductById(Long id) {
+        if(productRepo.findById(id).isPresent()){
+            return productMapper.toProductDto(productRepo.findById(id).get());
+        }
+        else{
+            throw new RuntimeException("product.not.found");
+
+        }
+    }
+
+    @Override
     public List<ProductDto> getProductByIds(List<Long> ids) {
 
-        return productMapper.toListOfProductDto(productRepo.findAllById(ids));
+        return productMapper.toListOfProductDto( productRepo.findAllById(ids));
     }
+
 
     private Pageable getPageable (int page ,int size){
         try {
