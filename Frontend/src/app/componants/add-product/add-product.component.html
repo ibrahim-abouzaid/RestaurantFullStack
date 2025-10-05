@@ -1,9 +1,11 @@
+<form #productForm="ngForm" (ngSubmit)="saveProduct(name, description, price)">
 
 <div class="form-container">
   <h1>Add New Product</h1>
 
 
     <!-- Product Name -->
+
     <div class="form-group">
       <label for="name">Product Name</label>
       <input #name type="text" id="name" name="name" placeholder="Enter product name" required>
@@ -32,18 +34,26 @@
         </ng-container>
 
       </select>
+
     </div>
 
-    <!-- Image -->
-<!--    <div class="form-group">-->
-<!--      <label for="image">Product Image</label>-->
-<!--      <input type="file" id="image" name="image" accept="image/*">-->
-<!--    </div>-->
+
+
 
     <!-- Buttons -->
-    <div class="form-actions">
-      <button (click)="saveProduct(name.value,description.value,price.value)" >Save Product</button>
-      <button type="reset" class="secondary">Clear</button>
-    </div>
+  <div class="form-actions">
+    <button type="submit">Save Product</button>
+    <button type="reset" class="secondary">Clear</button>
+  </div>
 
 </div>
+</form>
+<!-- Notification -->
+<div *ngIf="messageEn || messageAr"
+     class="notification"
+     [ngClass]="{ 'success': isSaved, 'error': !isSaved }">
+  <strong *ngIf="isSaved">✅ {{ messageEn }}</strong>
+  <strong *ngIf="!isSaved">❌ {{ messageEn }}</strong>
+  <div>{{ messageAr }}</div>
+</div>
+

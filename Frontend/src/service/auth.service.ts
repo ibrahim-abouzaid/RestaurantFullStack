@@ -39,21 +39,6 @@ logout(){
   sessionStorage.removeItem("roles")
 
 }
-  // getToken(): string | null {
-  //   return sessionStorage.getItem('token'); // or localStorage
-  // }
-  // getUserRoles(): string[] {
-  //   const token = this.getToken();
-  //   if (!token) return [];
-  //
-  //   try {
-  //     const decoded = jwtDecode<JwtPayload>(token);
-  //     return decoded.roles || decoded.authorities || [];
-  //   } catch (err) {
-  //     console.error('Error decoding token', err);
-  //     return [];
-  //   }
-  // }
 
   isUserAdmin(): boolean {
   const roles = sessionStorage.getItem("roles");

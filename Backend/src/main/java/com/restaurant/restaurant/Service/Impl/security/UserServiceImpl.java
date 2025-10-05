@@ -6,12 +6,14 @@ import com.restaurant.restaurant.Mapper.security.UserMapper;
 import com.restaurant.restaurant.Repo.security.UserRepo;
 import com.restaurant.restaurant.Service.security.RoleService;
 import com.restaurant.restaurant.Service.security.UserService;
+import com.restaurant.restaurant.controller.vm.UserChangePasswordRequestVm;
 import com.restaurant.restaurant.model.Enums.Roles;
 import com.restaurant.restaurant.model.security.Role;
 import com.restaurant.restaurant.model.security.User;
 import jakarta.transaction.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -103,6 +105,27 @@ public class UserServiceImpl implements UserService {
         } catch (SystemException e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    @Override
+    public Boolean changePassword(UserChangePasswordRequestVm userChangePasswordRequestVm) throws SystemException {
+        UserDto userDto= (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+       if(!passwordEncoder.matches(userChangePasswordRequestVm.getCurrentPassword(), userDto.getPassword())){
+
+           throw new SystemException("error.invalid.credentials");
+
+        }
+       if(!userChangePasswordRequestVm.getNewPassword().equals(userChangePasswordRequestVm.getConfirmNewPassword())){
+           throw new SystemException("error.password.not.match");
+       }
+        userDto.setPassword(passwordEncoder.encode(userChangePasswordRequestVm.getNewPassword()));
+
+        User user= userRepo.save( userMapper.toUser(userDto));
+        if(Objects.isNull(user)){
+            return false;
+        }
+        return true;
     }
 
     private void validateUpdateUser(Long id) throws SystemException {

@@ -22,6 +22,7 @@ export class ProductsComponent  implements OnInit{
   isDeleted = false;
   messageAr: string= '';
   messageEn: string = '';
+  selectedProduct: Product = null;
 
   constructor(private productService: ProductService,private activatedRoute: ActivatedRoute,
               private cartService: CartService, private router: Router,private authService: AuthService) {
@@ -98,7 +99,7 @@ this.productService.searchByKey(key,page,this.pageSize).subscribe(
 )
   }
   pagaintion(){
-    debugger
+
     this.lastpage=this.pageNumber ;
   this.loadUrl(this.pageNumber);
   }
@@ -120,6 +121,7 @@ this.productService.searchByKey(key,page,this.pageSize).subscribe(
       response => {
         debugger
         this.isDeleted=response
+       this.pagaintion();
         if( (this.totalProductsSize-1)/this.pageSize <=  (this.lastpage-1)){
           this.loadUrl(1);
         }
@@ -138,5 +140,13 @@ this.productService.searchByKey(key,page,this.pageSize).subscribe(
   }
   isUserAdmin(): boolean {
     return this.authService.isUserAdmin();
+  }
+
+  viewDetails(product: Product){
+
+    this.selectedProduct =product;
+  }
+  editProduct(product: Product){
+  this.router.navigate(['products/edit/', product.id]);
   }
 }

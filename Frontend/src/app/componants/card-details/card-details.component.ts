@@ -44,7 +44,6 @@ export class CardDetailsComponent {
     this.requestOrderService.createOrder(productIds,this.totalProductsSize,this.totalPrice).subscribe(
       response=>{
         this.cartService.clearCart();
-        debugger
         this.router.navigateByUrl('/order-code/' + response.code);
       }
     );

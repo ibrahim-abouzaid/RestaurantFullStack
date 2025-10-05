@@ -21,21 +21,29 @@
         <div class="nav-item nav-link active"> </div>
 
 
-        <div *ngIf="isUserAuthenticated() && isUserAdmin()" class="nav-item dropdown">
+        <div *ngIf="isUserAuthenticated() " class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle custom-dropdown-toggle" data-bs-toggle="dropdown">
             ⚙️ Setting
           </a>
           <div class="dropdown-menu custom-dropdown shadow-lg border-0 rounded-3">
-            <a  routerLink="/addProducts" class="dropdown-item">
+            <a *ngIf="isUserAdmin()" routerLink="/addProducts" class="dropdown-item">
               ➕ Add Product
             </a>
 
-            <a href="booking.html" class="dropdown-item">
-              📦 All Orders
+            <a routerLink="/order-history" class="dropdown-item">
+              📦 My Orders History
             </a>
-            <a href="add-category.html" class="dropdown-item">
+            <a *ngIf="isUserAdmin()" href="add-category.html" class="dropdown-item">
               🏷️ Add Category
             </a>
+
+            <a routerLink="/change-password"  class="dropdown-item d-flex align-items-center rounded mb-1">
+              <i class="fa fa-key text-warning me-2"></i> Change Password
+            </a>
+            <a  *ngIf="isUserAdmin ()" href="booking.html" class="dropdown-item d-flex align-items-center rounded">
+              <i class="fa fa-user-times text-danger me-2"></i> Remove Account
+            </a>
+
           </div>
         </div>
         <!--<a href="contact.html" class="nav-item nav-link">Contact</a>-->

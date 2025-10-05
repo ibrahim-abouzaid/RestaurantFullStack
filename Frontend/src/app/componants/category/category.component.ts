@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {CategoryService} from '../../../service/category.service';
 import {Category} from '../../../model/category';
 import {AuthService} from '../../../service/auth.service';
@@ -13,18 +13,25 @@ export class CategoryComponent implements OnInit{
 
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService,private authService: AuthService) {
+  constructor(private categoryService: CategoryService,private authService: AuthService,private cdr: ChangeDetectorRef) {
 
   }
 
 
   ngOnInit(): void {
-       this.getCategories();
+
+     let islogin =this.isLoggedIn()
+    if(islogin){
+      this.getCategories();
+    }
+
   }
 
   getCategories(){
     this.categoryService.getCategories().subscribe(
-      value => this.categories = value
+      value => {this.categories = value
+    this.cdr.detectChanges();
+      }
     );
   }
   isLoggedIn(): boolean{

@@ -20,6 +20,10 @@ import {LoginAndSignupGuard} from '../guard/login-and-signup.guard';
 import {AuthInterceptor} from '../interceptors/auth.interceptor';
 import {OrderCodeComponent} from './componants/order-code/order-code.component';
 import { AddProductComponent } from './componants/add-product/add-product.component';
+import { MyOrdersComponent } from './componants/my-orders/my-orders.component';
+import { EditProductComponent } from './componants/edit-product/edit-product.component';
+import {FormsModule} from '@angular/forms';
+import { ChangePasswordComponent } from './componants/change-password/change-password.component';
 
 // http://localhost:4200/
 export const routes: Routes = [
@@ -28,12 +32,15 @@ export const routes: Routes = [
   {path: 'products', component: ProductsComponent, canActivate: [AuthGuard]},
   {path: 'get-All-ByCategoryId/:id', component: ProductsComponent, canActivate: [AuthGuard]},
   {path: 'products/:key', component: ProductsComponent, canActivate: [AuthGuard]},
+  {path: 'products/edit/:id', component: EditProductComponent, canActivate: [AuthGuard]},
   // http://localhost:4200/cardDetails
   {path: 'cardDetails', component: CardDetailsComponent, canActivate: [AuthGuard]},
   {path: 'contact-info', component: ContactInfoComponent, canActivate: [AuthGuard]},
   {path: 'chefs', component: ChefsComponent, canActivate: [AuthGuard]},
   { path: 'order-code/:code', component: OrderCodeComponent, canActivate: [AuthGuard] },
   { path: 'addProducts', component: AddProductComponent, canActivate: [AuthGuard] },
+  { path: 'order-history', component: MyOrdersComponent, canActivate: [AuthGuard] },
+  { path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthGuard] },
 
   // http://localhost:4200/login
   {path: 'login', component: LoginComponent,canActivate: [LoginAndSignupGuard]},
@@ -67,13 +74,17 @@ export const routes: Routes = [
     ContactInfoComponent,
     LoginComponent,
     SignUpComponent,
-    AddProductComponent
+    AddProductComponent,
+    MyOrdersComponent,
+    EditProductComponent,
+    ChangePasswordComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    FormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor, multi: true},
     { provide: APP_BASE_HREF, useValue: '/' }],

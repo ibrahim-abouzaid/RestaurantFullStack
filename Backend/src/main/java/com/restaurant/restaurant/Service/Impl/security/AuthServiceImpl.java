@@ -40,6 +40,7 @@ public class AuthServiceImpl implements AuthService {
 
     }
 
+    //TODO add transactional annotation
     @Override
     public AuthResponseVm signUp(UserDto userDto) {
 
@@ -48,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("create.failed");
         }
         List<String> roles= new ArrayList<>();
-        for(RoleDto roleDto : userDto.getRoles()){
+        for(RoleDto roleDto : user.getRoles()){
             roles.add(roleDto.getRole());
         }
         return new AuthResponseVm(user.getId(),user.getUsername(),tokenHandler.createToken(user),roles);

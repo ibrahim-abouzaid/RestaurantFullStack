@@ -27,6 +27,13 @@ export class ProductService {
       )
     );
 }
+getProductById(id) : Observable<any>{
+    return this.http.get<any>(this.baseUrl+"get-ProductById?id="+id).pipe(
+      map (
+        response => response
+      )
+    )
+}
   searchByKey(key,page,size): Observable<any>{
     return this.http.get<Product[]>(this.baseUrl+'search?key='+key +'&page='+page+"&size="+size).pipe(
       map(
@@ -49,5 +56,13 @@ export class ProductService {
         response => response
       )
     )
+  }
+  updateProduct(id,name,price,description,categoryId,image){
+    return this.http.put<any>(this.baseUrl+'update-Product',{id,name,price,description,categoryId,image}).pipe(
+      map(
+        response => response
+      )
+    )
+
   }
 }

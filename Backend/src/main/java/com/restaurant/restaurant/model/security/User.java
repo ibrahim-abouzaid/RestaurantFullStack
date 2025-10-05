@@ -1,5 +1,6 @@
 package com.restaurant.restaurant.model.security;
 
+import com.restaurant.restaurant.model.BaseEntity;
 import com.restaurant.restaurant.model.ContactInfo;
 
 import com.restaurant.restaurant.model.Orders;
@@ -20,10 +21,8 @@ import java.util.List;
 @Setter
 @Getter
 
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseEntity {
+
     @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = false)

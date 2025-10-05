@@ -9,13 +9,20 @@ import {map} from "rxjs/operators";
 })
 export class CategoryService {
 
-  categoryUrl = 'http://localhost:8080/get-All-Categories';
+  categoryUrl = 'http://localhost:8080/api/category/';
   constructor(private http: HttpClient) {
 
   }
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.categoryUrl).pipe(
+    return this.http.get<Category[]>(this.categoryUrl+"get-All-Categories").pipe(
+      map(
+        response => response
+      )
+    )
+  }
+  getCategoryById(id): Observable<Category> {
+    return this.http.get<Category>(this.categoryUrl+"get-CategoryById?id="+id).pipe(
       map(
         response => response
       )
