@@ -1,5 +1,6 @@
 package com.restaurant.restaurant.model.security;
 
+import com.restaurant.restaurant.base.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,10 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserDetails extends BaseEntity {
+
     @Column(nullable = false)
     private String age;
     @Column(nullable = false)

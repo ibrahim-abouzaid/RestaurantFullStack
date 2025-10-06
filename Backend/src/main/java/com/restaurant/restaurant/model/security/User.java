@@ -1,6 +1,6 @@
 package com.restaurant.restaurant.model.security;
 
-import com.restaurant.restaurant.model.BaseEntity;
+import com.restaurant.restaurant.base.model.BaseEntity;
 import com.restaurant.restaurant.model.ContactInfo;
 
 import com.restaurant.restaurant.model.Orders;

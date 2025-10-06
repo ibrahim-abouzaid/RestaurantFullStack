@@ -1,5 +1,6 @@
 package com.restaurant.restaurant.model;
 
+import com.restaurant.restaurant.base.model.BaseEntity;
 import com.restaurant.restaurant.model.security.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,10 +13,8 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContactInfo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ContactInfo extends BaseEntity {
+
     private String name;
     private String email;
     private String subject;

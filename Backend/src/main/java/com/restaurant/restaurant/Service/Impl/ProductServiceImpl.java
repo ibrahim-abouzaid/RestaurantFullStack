@@ -1,8 +1,10 @@
 package com.restaurant.restaurant.Service.Impl;
 
+import com.restaurant.restaurant.DTO.NotificationDto;
 import com.restaurant.restaurant.DTO.ProductDto;
 import com.restaurant.restaurant.Mapper.ProductMapper;
 import com.restaurant.restaurant.Repo.ProductRepo;
+import com.restaurant.restaurant.Service.NotificationService;
 import com.restaurant.restaurant.Service.ProductService;
 import com.restaurant.restaurant.controller.vm.ProductResponseVm;
 import com.restaurant.restaurant.model.Product;
@@ -25,12 +27,14 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepo productRepo;
 
-    
+
+    private NotificationService notificationService;
     private final ProductMapper productMapper;
 
     @Autowired
-    public ProductServiceImpl(ProductRepo productRepo , ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepo productRepo, NotificationService notificationService, ProductMapper productMapper) {
         this.productRepo = productRepo;
+        this.notificationService = notificationService;
         this.productMapper = productMapper;
     }
 
@@ -40,7 +44,9 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("Product name must not be empty");
         }
         Product product = productMapper.toProduct(productDto);
-        return productMapper.toProductDto(productRepo.save(product));
+        product=productRepo.save(product);
+        notificationService.notifyAllUsers(new NotificationDto("New Product added: "+product.getName(),"INFO",true));
+        return productMapper.toProductDto(product);
 
     }
 
@@ -64,8 +70,9 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("Product with ID " + productDto.getId() + " not found");
         }
         Product product = productMapper.toProduct(productDto);
-
-        return productMapper.toProductDto(productRepo.save(product));
+        product=productRepo.save(product);
+        notificationService.notifyAllUsers(new NotificationDto("product updated: "+product.getName(),"WARNING",true));
+        return productMapper.toProductDto(product);
     }
 
     @Override
@@ -86,6 +93,9 @@ public class ProductServiceImpl implements ProductService {
         if(!productRepo.existsById(id)){
             return false;
         }
+        Product product=productRepo.findById(id).get();
+        notificationService.notifyAllUsers(new NotificationDto("Product Deleted: "+product.getName(),"ERROR",true));
+
         productRepo.deleteById(id);
         return true;
     }

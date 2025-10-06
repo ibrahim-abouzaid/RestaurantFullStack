@@ -1,5 +1,6 @@
 package com.restaurant.restaurant.model;
 
+import com.restaurant.restaurant.base.model.BaseEntity;
 import com.restaurant.restaurant.model.security.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,11 +16,8 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Orders {
+public class Orders extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String code;
     @Column(nullable = false)
     private Double totalPrice;

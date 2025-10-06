@@ -1,25 +1,22 @@
 package com.restaurant.restaurant.model;
 
-
 import com.restaurant.restaurant.base.model.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Chef extends BaseEntity {
-
-    private String name;
-    private String specialty;
-    private String logoPath;
-    private String FACEBOOK_LINK;
-    private String INSTAGRAM_LINK;
-    private String TWITTER_LINK;
+@Entity
+public class Notification extends BaseEntity {
+    @Column(nullable = false)
+    private String message;
+    private String type;
+    private boolean isGlobal = true;
 
 }

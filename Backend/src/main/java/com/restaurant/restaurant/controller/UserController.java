@@ -1,15 +1,15 @@
 package com.restaurant.restaurant.controller;
 
+import com.restaurant.restaurant.DTO.security.UserDto;
 import com.restaurant.restaurant.Service.security.UserService;
 import com.restaurant.restaurant.controller.vm.UserChangePasswordRequestVm;
 import jakarta.transaction.SystemException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/user")
 @RestController()
@@ -25,5 +25,9 @@ public class UserController {
     public ResponseEntity<Boolean> changePassword(@RequestBody @Valid UserChangePasswordRequestVm userChangePasswordRequestVm ) throws SystemException {
 
         return ResponseEntity.ok().body(userService.changePassword(userChangePasswordRequestVm));
+    }
+    @GetMapping("/get-all-User")
+    public ResponseEntity<List<UserDto>> getAllUser(){
+    return ResponseEntity.ok().body(userService.getUsers());
     }
 }

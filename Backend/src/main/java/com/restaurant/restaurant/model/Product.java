@@ -1,5 +1,6 @@
 package com.restaurant.restaurant.model;
 
+import com.restaurant.restaurant.base.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,12 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Product {
+public class Product extends BaseEntity {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     private String name;
 
     private String image;
