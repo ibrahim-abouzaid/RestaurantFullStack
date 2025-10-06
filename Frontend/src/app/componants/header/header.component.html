@@ -18,43 +18,47 @@
         <div *ngIf="!isUserAuthenticated()" class="nav-item nav-link active"><a routerLink="/signup">sign up</a></div>
         <div *ngIf="isUserAuthenticated()" (click)="logout()" class="nav-item nav-link active"><a routerLink="/login">logout</a></div>
 
-        <div class="nav-item nav-link active"> </div>
+        <app-notify-bell  *ngIf="isUserAuthenticated()"></app-notify-bell>
 
-
-        <div *ngIf="isUserAuthenticated() " class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle custom-dropdown-toggle" data-bs-toggle="dropdown">
+        <div *ngIf="isUserAuthenticated()" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="settingsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
             ⚙️ Setting
           </a>
-          <div class="dropdown-menu custom-dropdown shadow-lg border-0 rounded-3">
-            <a *ngIf="isUserAdmin()" routerLink="/addProducts" class="dropdown-item">
-              ➕ Add Product
-            </a>
 
-            <a routerLink="/order-history" class="dropdown-item">
-              📦 My Orders History
-            </a>
-            <a *ngIf="isUserAdmin()" href="add-category.html" class="dropdown-item">
-              🏷️ Add Category
-            </a>
-
-            <a routerLink="/change-password"  class="dropdown-item d-flex align-items-center rounded mb-1">
-              <i class="fa fa-key text-warning me-2"></i> Change Password
-            </a>
-            <a  *ngIf="isUserAdmin ()" href="booking.html" class="dropdown-item d-flex align-items-center rounded">
-              <i class="fa fa-user-times text-danger me-2"></i> Remove Account
-            </a>
-
-          </div>
+          <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3"
+              aria-labelledby="settingsDropdown">
+            <li *ngIf="isUserAdmin()">
+              <a routerLink="/addProducts" class="dropdown-item">➕ Add Product</a>
+            </li>
+            <li>
+              <a routerLink="/order-history" class="dropdown-item">📦 My Orders History</a>
+            </li>
+            <li *ngIf="isUserAdmin()">
+              <a routerLink="/add-category" class="dropdown-item">🏷️ Add Category</a>
+            </li>
+            <li>
+              <a routerLink="/change-password" class="dropdown-item">
+                <i class="fa fa-key text-warning me-2"></i> Change Password
+              </a>
+            </li>
+            <li *ngIf="isUserAdmin()">
+              <a routerLink="/remove-account" class="dropdown-item text-danger">
+                <i class="fa fa-user-times me-2"></i> Remove Account
+              </a>
+            </li>
+          </ul>
         </div>
-        <!--<a href="contact.html" class="nav-item nav-link">Contact</a>-->
+<!--        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
       </div>
 
 
-    </div  >
+    </div >
     <app-card *ngIf="isUserAuthenticated()" ></app-card>
   </nav>
 
   <div class="container-xxl py-5 bg-dark hero-header mb-5">
   </div>
 </div>
+<div class="nav-item nav-link active"> </div>
 <!-- Navbar & Hero End -->

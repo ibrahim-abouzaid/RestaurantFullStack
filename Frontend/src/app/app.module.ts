@@ -24,6 +24,8 @@ import { MyOrdersComponent } from './componants/my-orders/my-orders.component';
 import { EditProductComponent } from './componants/edit-product/edit-product.component';
 import {FormsModule} from '@angular/forms';
 import { ChangePasswordComponent } from './componants/change-password/change-password.component';
+import { NotifyBellComponent } from './componants/notify-bell/notify-bell.component';
+import { RemoveUsersComponent } from './componants/remove-users/remove-users.component';
 
 // http://localhost:4200/
 export const routes: Routes = [
@@ -77,7 +79,9 @@ export const routes: Routes = [
     AddProductComponent,
     MyOrdersComponent,
     EditProductComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    NotifyBellComponent,
+    RemoveUsersComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

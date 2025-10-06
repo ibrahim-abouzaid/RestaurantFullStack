@@ -4,13 +4,14 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Product} from '../model/product';
 import {AddProduct} from '../model/add-product';
+import {NotifyService} from './notify.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   baseUrl= ' http://localhost:8080/api/products/'
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private notifyService : NotifyService) {
   }
 
   getProducts(page ,size): Observable<any> {
@@ -44,6 +45,7 @@ getProductById(id) : Observable<any>{
 
   ///delete-Product
   deleteProductById(product:Product){
+
     return this.http.delete<boolean>(this.baseUrl + "delete-Product?id="+product.id ).pipe(
       map(
         response => response

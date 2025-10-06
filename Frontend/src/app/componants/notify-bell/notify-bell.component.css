@@ -1,0 +1,151 @@
+.notification {
+  position: relative;
+  display: inline-block;
+  margin: auto;
+  padding: 25px;
+}
+
+/* hide checkbox */
+.notification input[type="checkbox"] {
+  display: none;
+}
+
+/* bell button */
+.bell-wrapper {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.bell {
+  width: 26px;
+  height: 26px;
+  fill: #fff; /* white icon for dark header */
+}
+
+/* badge */
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  font-size: 11px;
+  border-radius: 50%;
+  padding: 2px 5px;
+}
+
+/* 👇 renamed class */
+.notif-dropdown {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  width: 250px;
+  background: white;
+  color: black;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top right;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  z-index: 100;
+}
+
+/* show dropdown when checked */
+.notification input:checked ~ .notif-dropdown {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+/* header */
+.notif-dropdown h4 {
+  margin: 0;
+  padding: 10px;
+  font-size: 14px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* items */
+.notif-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.notif-dropdown li {
+  padding: 10px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+.notif-dropdown li:last-child {
+  border-bottom: none;
+}
+
+.notif-dropdown li:hover {
+  background: #f9fafb;
+}
+
+.empty {
+  text-align: center;
+  color: #9ca3af;
+  padding: 15px;
+}
+/* Color by type */
+.info {
+  border-left-color: #22c55e; /* green */
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.warning {
+  border-left-color: #facc15; /* yellow */
+  background: #fef9c3;
+  color: #92400e;
+}
+
+.error {
+  border-left-color: #ef4444; /* red */
+  background: #fee2e2;
+  color: #7f1d1d;
+}
+
+
+/* Hover effect */
+.notif-dropdown li:hover {
+  filter: brightness(0.98);
+}
+.notif-header {
+  display: flex;
+  justify-content: space-between; /* title on left, link on right */
+  align-items: center;
+  padding: 10px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.notif-header h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.notif-header a {
+  font-size: 13px;
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.notif-header a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}

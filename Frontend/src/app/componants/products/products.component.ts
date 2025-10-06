@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../../../service/cart.service';
 import {ProductOrder} from '../../../model/ProductOrder';
 import {AuthService} from '../../../service/auth.service';
+import {NotifyService} from '../../../service/notify.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ProductsComponent  implements OnInit{
   selectedProduct: Product = null;
 
   constructor(private productService: ProductService,private activatedRoute: ActivatedRoute,
-              private cartService: CartService, private router: Router,private authService: AuthService) {
+              private cartService: CartService, private router: Router,private authService: AuthService,private notifyService: NotifyService) {
 
   }
 
@@ -119,7 +120,6 @@ this.productService.searchByKey(key,page,this.pageSize).subscribe(
 
     this.productService.deleteProductById(product).subscribe(
       response => {
-        debugger
         this.isDeleted=response
        this.pagaintion();
         if( (this.totalProductsSize-1)/this.pageSize <=  (this.lastpage-1)){
@@ -128,6 +128,7 @@ this.productService.searchByKey(key,page,this.pageSize).subscribe(
         else{
           this.loadUrl(this.lastpage);
         }
+        this.notifyService.triggerRefresh();
 
 
       },error => {

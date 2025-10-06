@@ -1,0 +1,25 @@
+<div class="orders-summary">
+  <h2>📊 Orders Summary</h2>
+  <p><strong>Total Products:</strong> {{ totalSize }}</p>
+  <p><strong>Total Price:</strong> ${{ totalPrice }}</p>
+</div>
+<div class="orders-container">
+  <div *ngFor="let order of orders" class="order-card">
+    <div class="order-header">
+      <h3>Order: {{ order.code }}</h3>
+      <p><strong>Total Price:</strong> ${{ order.totalPrice }}</p>
+      <p><strong>Total Items:</strong> {{ order.totalNumber }}</p>
+    </div>
+
+    <div class="products-list">
+      <div *ngFor="let product of order.products" class="product-item">
+        <img src="../../../assets/img/{{product.image}}" alt="{{ product.name }}">
+        <div class="product-details">
+          <h4>{{ product.name }}</h4>
+<!--          <p class="desc">{{ product.description }}</p>-->
+          <p class="price"><strong>Price:</strong> ${{ product.price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

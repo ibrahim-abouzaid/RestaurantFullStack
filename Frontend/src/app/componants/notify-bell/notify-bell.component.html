@@ -1,0 +1,36 @@
+<div class="notification">
+    <!-- Hidden checkbox (controls dropdown open/close) -->
+    <input type="checkbox" id="notifToggle">
+
+    <!-- Label is clickable bell -->
+    <label for="notifToggle" class="bell-wrapper">
+      <svg viewBox="0 0 24 24" class="bell">
+        <path d="M12 22a2 2 0 0 0 2-2H10a2 2 0 0 0 2 2z"/>
+        <path d="M18 16v-5a6 6 0 0 0-12 0v5l-1 1v1h14v-1l-1-1z"/>
+      </svg>
+    <span class="badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+  </label>
+
+  <div class="notif-dropdown">
+    <div class="notif-header">
+      <h4>Notifications</h4>
+      <a *ngIf="unreadCount >0" (click)="readAll()">Read all</a>
+      <a *ngIf="unreadCount <0" (click)="readAll()">Unread all</a>
+    </div>
+    <ul *ngIf="notifications.length > 0; else empty">
+      <li *ngFor="let notif of notifications" [ngClass]="notif.type.toLowerCase()">
+        <span *ngIf="notif.type === 'INFO'">✅</span>
+        <span *ngIf="notif.type === 'WARNING'">⚠️</span>
+        <span *ngIf="notif.type === 'ERROR'">❌</span>
+        {{ notif.message }}
+
+      </li>
+
+    </ul>
+    <ng-template #empty>
+      <div class="empty">No notifications</div>
+    </ng-template>
+  </div>
+</div>
+
+

@@ -1,0 +1,48 @@
+
+<div class="form-container">
+  <h1>Edit Product</h1>
+
+
+  <!-- Product Name -->
+
+  <div class="form-group">
+    <label for="name">Product Name</label>
+    <input #name type="text" id="name" name="name" [value]="product.name" required>
+  </div>
+
+  <!-- Description -->
+  <div class="form-group">
+    <label  for="description">Description</label>
+    <textarea #description id="description" name="description" [value]="product.description" rows="4"></textarea>
+  </div>
+
+  <!-- Price -->
+  <div class="form-group">
+    <label for="price">Price ($)</label>
+    <input #price type="number" id="price" name="price" min="0" step="1" [value]="product.price" required>
+  </div>
+
+  <!-- Category -->
+  <div class="form-group">
+    <label for="category">Category</label>
+    <select  [value]="categoryName" (change)="getCategory($event)" id="category" name="category" required>
+      <ng-container *ngFor="let category of categoryList">
+        <option *ngIf="category.name !== 'ALL'">
+          {{ category.name }}
+        </option>
+      </ng-container>
+
+    </select>
+
+  </div>
+
+  <input #id type="hidden"  [value]="product.id"  name="id">
+
+
+  <!-- Buttons -->
+  <div class="form-actions">
+    <button (click)="saveProduct(id.value,name.value,description.value,price.value)" >Save Product</button>
+    <button type="reset" class="secondary">Clear</button>
+  </div>
+
+</div>
